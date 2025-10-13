@@ -1,0 +1,41 @@
+{
+  "version": "1.0.0",
+  "author": "gokong",
+  "description": "Prompt configuration for WhatsApp, E-Wallet, and Activated Number Validator WebApp",
+  "prompts": {
+    "whatsapp_validator": {
+      "name": "WhatsApp Number Validator",
+      "task": "Validate if number is linked to WhatsApp account",
+      "prompt": "You are a validator service for WhatsApp numbers. Input: a phone number string. Tasks: 1. Normalize to E.164. 2. Check if likely WhatsApp number via pattern or presence API. Return JSON with fields input, e164, valid, type, is_whatsapp, country, carrier, confidence, reason, message."
+    },
+    "ewallet_validator": {
+      "name": "E-Wallet Number Validator",
+      "task": "Check if number matches e-wallet providers (Gopay, OVO, DANA, ShopeePay)",
+      "prompt": "You are an e-wallet number validator. Input: phone number and optional provider hint. Normalize to E.164, detect prefix and provider. Return JSON: input, e164, valid, type, possible_providers, registered, confidence, reason, next_steps."
+    },
+    "activated_validator": {
+      "name": "Activated Number Validator",
+      "task": "Check if number is active or reachable",
+      "prompt": "You are a phone activation checker. Input: phone number and method (ping/sms/otp/presence-api). Normalize to E.164. Return JSON: input, e164, valid, type, active, method_used, confidence, reason, recommended_action."
+    },
+    "combined_validator": {
+      "name": "Combined Number Validator",
+      "task": "Batch validation for multiple numbers using all validator types",
+      "prompt": "You are a combined validator. Input: array of phone numbers. Run WhatsApp, E-wallet, and Activated checks for each. Return structured JSON array and summary (total_checked, valid_counts, low_confidence)."
+    }
+  },
+  "ui_texts": {
+    "placeholder": "Masukkan nomor (contoh: +628123456789)",
+    "button": "Cek Nomor",
+    "bulk_button": "Cek Sekaligus",
+    "whatsapp_ok": "\u2705 Terverifikasi di WhatsApp",
+    "ewallet_ok": "\ud83d\udcb3 Diduga nomor e-wallet aktif",
+    "inactive": "\u26a0\ufe0f Nomor tidak aktif",
+    "privacy_note": "Kami tidak menyimpan nomor Anda tanpa izin. OTP hanya dikirim jika Anda setujui."
+  },
+  "otp_config": {
+    "template": "Kode verifikasi Anda untuk layanan Validator adalah {OTP}. Berlaku 5 menit. Jangan bagikan kode ini.",
+    "ttl_minutes": 5,
+    "max_attempts": 3
+  }
+}
